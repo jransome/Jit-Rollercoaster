@@ -1,5 +1,19 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
+
+public enum RampDirection
+{
+  Left,
+  Straight,
+  Right,
+  DownLeft,
+  Down,
+  DownRight,
+  UpLeft,
+  Up,
+  UpRight,
+}
 
 public class TrackBuilder : MonoBehaviour
 {
@@ -8,18 +22,6 @@ public class TrackBuilder : MonoBehaviour
   static float LeftRightAngle = 10f;
   static float RollAngle = 10f;
 
-  public enum RampDirection
-  {
-    UpLeft,
-    Up,
-    UpRight,
-    Left,
-    Straight,
-    Right,
-    DownLeft,
-    Down,
-    DownRight,
-  }
 
   public static Dictionary<KeyCode, RampDirection> KeyBindings = new Dictionary<KeyCode, RampDirection>()
   {
@@ -47,26 +49,30 @@ public class TrackBuilder : MonoBehaviour
     { RampDirection.DownRight,  Quaternion.Euler(UpDownAngle, LeftRightAngle, -RollAngle) },
   };
 
+  // public event Action<Ramp> RampAdded = delegate { };
+
   public GameObject RampPrefab;
   public List<Ramp> Track; // Initialised in inspector
 
-  private void CreateRamp(RampDirection direction)
+  public void BuildRamp(RampDirection direction, Action onBallEnteredCb)
   {
     Ramp previous = Track[Track.Count - 1];
-    Ramp r = Instantiate(RampPrefab, previous.EndConnector.position, RampRotations[direction] * Quaternion.AngleAxis(previous.transform.rotation.eulerAngles.y, Vector3.up)).GetComponent<Ramp>();
+    Vector3 prevXYEuler = new Vector3(previous.transform.eulerAngles.x, previous.transform.eulerAngles.y, 0f);
+    Ramp r = Instantiate(RampPrefab, previous.EndConnector.position, RampRotations[direction] * Quaternion.Euler(prevXYEuler)).GetComponent<Ramp>();
+    r.OnBallEnteredCb = onBallEnteredCb;
     Track.Add(r);
   }
 
   private void Update()
   {
-    if (Input.GetKeyDown(KeyCode.Q)) CreateRamp(KeyBindings[KeyCode.Q]);
-    if (Input.GetKeyDown(KeyCode.W)) CreateRamp(KeyBindings[KeyCode.W]);
-    if (Input.GetKeyDown(KeyCode.E)) CreateRamp(KeyBindings[KeyCode.E]);
-    if (Input.GetKeyDown(KeyCode.A)) CreateRamp(KeyBindings[KeyCode.A]);
-    if (Input.GetKeyDown(KeyCode.S)) CreateRamp(KeyBindings[KeyCode.S]);
-    if (Input.GetKeyDown(KeyCode.D)) CreateRamp(KeyBindings[KeyCode.D]);
-    if (Input.GetKeyDown(KeyCode.Z)) CreateRamp(KeyBindings[KeyCode.Z]);
-    if (Input.GetKeyDown(KeyCode.X)) CreateRamp(KeyBindings[KeyCode.X]);
-    if (Input.GetKeyDown(KeyCode.C)) CreateRamp(KeyBindings[KeyCode.C]);
+    if (Input.GetKeyDown(KeyCode.Q)) BuildRamp(KeyBindings[KeyCode.Q], delegate { });
+    if (Input.GetKeyDown(KeyCode.W)) BuildRamp(KeyBindings[KeyCode.W], delegate { });
+    if (Input.GetKeyDown(KeyCode.E)) BuildRamp(KeyBindings[KeyCode.E], delegate { });
+    if (Input.GetKeyDown(KeyCode.A)) BuildRamp(KeyBindings[KeyCode.A], delegate { });
+    if (Input.GetKeyDown(KeyCode.S)) BuildRamp(KeyBindings[KeyCode.S], delegate { });
+    if (Input.GetKeyDown(KeyCode.D)) BuildRamp(KeyBindings[KeyCode.D], delegate { });
+    if (Input.GetKeyDown(KeyCode.Z)) BuildRamp(KeyBindings[KeyCode.Z], delegate { });
+    if (Input.GetKeyDown(KeyCode.X)) BuildRamp(KeyBindings[KeyCode.X], delegate { });
+    if (Input.GetKeyDown(KeyCode.C)) BuildRamp(KeyBindings[KeyCode.C], delegate { });
   }
 }
