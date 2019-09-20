@@ -25,7 +25,7 @@ public class TrackGenerator : MonoBehaviour
 
     float perlin = Mathf.PerlinNoise(0f, builder.Track.Count * perlinNoiseScale + 500);
     float randomYaw = (perlin * 2f - 1f) * maxYaw;
-    Debug.Log(randomYaw);
+    // Debug.Log(randomYaw);
 
     return new Vector3(
       Random.Range(-maxUpPitch, maxDownPitch),
