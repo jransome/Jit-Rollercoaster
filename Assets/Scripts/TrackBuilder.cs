@@ -63,6 +63,14 @@ public class TrackBuilder : MonoBehaviour
     Track.Add(r);
   }
 
+  public void BuildRamp(Vector3 orientation, Action onBallEnteredCb)
+  {
+    Ramp previous = Track[Track.Count - 1];
+    Ramp r = Instantiate(RampPrefab, previous.EndConnector.position, Quaternion.Euler(orientation)).GetComponent<Ramp>();
+    r.OnBallEnteredCb = onBallEnteredCb;
+    Track.Add(r);
+  }
+
   private void Update()
   {
     if (Input.GetKeyDown(KeyCode.Q)) BuildRamp(KeyBindings[KeyCode.Q], delegate { });

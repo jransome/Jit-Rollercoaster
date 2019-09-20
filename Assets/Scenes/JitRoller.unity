@@ -253,7 +253,7 @@ PrefabInstance:
     - target: {fileID: 7084243090574303904, guid: d1b24b6094bb54827bc80bb2ac10e95f,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.08715578
+      value: 0.2164396
       objectReference: {fileID: 0}
     - target: {fileID: 7084243090574303904, guid: d1b24b6094bb54827bc80bb2ac10e95f,
         type: 3}
@@ -268,7 +268,7 @@ PrefabInstance:
     - target: {fileID: 7084243090574303904, guid: d1b24b6094bb54827bc80bb2ac10e95f,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.9961947
+      value: 0.97629607
       objectReference: {fileID: 0}
     - target: {fileID: 7084243090574303904, guid: d1b24b6094bb54827bc80bb2ac10e95f,
         type: 3}
@@ -278,7 +278,7 @@ PrefabInstance:
     - target: {fileID: 7084243090574303904, guid: d1b24b6094bb54827bc80bb2ac10e95f,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 10
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 7084243090574303904, guid: d1b24b6094bb54827bc80bb2ac10e95f,
         type: 3}
@@ -669,5 +669,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: faa87ea9ef3fa4f8e8805769d30f2ce2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxUpPitch: 5
+  maxDownPitch: 50
+  maxYaw: 15
   builder: {fileID: 1964113955}
   ball: {fileID: 1431298899}
