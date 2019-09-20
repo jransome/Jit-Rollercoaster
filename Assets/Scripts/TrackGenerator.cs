@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class TrackGenerator : MonoBehaviour
 {
+  public float perlinNoiseScale = 0.2f;
   public float maxUpPitch = 10f;
   public float maxDownPitch = 20f;
   public float maxYaw = 10f;
@@ -13,18 +14,18 @@ public class TrackGenerator : MonoBehaviour
 
   Ramp lastRamp;
 
-  private RampDirection GenerateNextRampDirection()
-  {
-    int nRamps = builder.Track.Count;
-    List<Ramp> recentRamps = nRamps > 5 ? builder.Track.GetRange(nRamps - 6, nRamps - 1) : builder.Track;
-
-    Debug.Log(recentRamps);
-    return (RampDirection)Random.Range(0, 7);
-  }
+  private RampDirection GenerateNextRampDirection() => (RampDirection)Random.Range(0, 7);
 
   private Vector3 GenerateNextRampFromAngles()
   {
-    float randomYaw = Random.Range(-maxYaw, maxYaw);
+    // int nRamps = builder.Track.Count;
+    // List<Ramp> recentRamps = nRamps > 5 ? builder.Track.GetRange(nRamps - 6, nRamps - 1) : builder.Track;
+    // float avgYaw = recentRamps.Average(r => r.transform.rotation.eulerAngles.y);
+    // float randomYaw = Random.Range(-maxYaw, maxYaw);
+
+    float perlin = Mathf.PerlinNoise(0f, builder.Track.Count * perlinNoiseScale + 500);
+    float randomYaw = (perlin * 2f - 1f) * maxYaw;
+    Debug.Log(randomYaw);
 
     return new Vector3(
       Random.Range(-maxUpPitch, maxDownPitch),

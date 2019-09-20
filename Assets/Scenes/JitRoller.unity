@@ -618,8 +618,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1964113956}
-  - component: {fileID: 1964113955}
   - component: {fileID: 1964113957}
+  - component: {fileID: 1964113955}
   m_Layer: 0
   m_Name: Track
   m_TagString: Untagged
@@ -669,8 +669,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: faa87ea9ef3fa4f8e8805769d30f2ce2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  perlinNoiseScale: 0.1
   maxUpPitch: 5
-  maxDownPitch: 50
-  maxYaw: 15
+  maxDownPitch: 60
+  maxYaw: 70
   builder: {fileID: 1964113955}
   ball: {fileID: 1431298899}
